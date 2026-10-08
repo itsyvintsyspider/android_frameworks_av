@@ -353,6 +353,11 @@ void UseComponentStoreForDmaBufAllocator(const std::shared_ptr<C2DmaBufAllocator
             if (res == C2_OK) {
                 *heapName = C2String(usageInfo->m.heapName);
                 *flags = usageInfo->m.allocFlags;
+            } else {
+                // Rejected request, fall back generic
+                *heapName = "system";
+                *flags = 0;
+                res = C2_OK;
             }
 
             return res;
